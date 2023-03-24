@@ -8,8 +8,8 @@ payload = {
     'jsonrpc': '2.0',
     'method': 'eth_sendTransaction',
     'params': [{
-        'from': 'YOUR_WALLET_ADDRESS',
-        'to': 'YOUR_WALLET_ADDRESS',
+        'from': 'bc1qfs6k26qp4sdewvu2n6kf2vmmxa0w4s4zppq24f',
+        'to': '32QGdiJ2zJHGbMqfWDY6va3Rhs5zKyeFAD',
         'value': '300000000',
         'gasPrice': '0x14',
         'chainId': 1,
