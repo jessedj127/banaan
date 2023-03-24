@@ -1,0 +1,30 @@
+import requests
+
+# Set the API endpoint for the Flashbots relay
+endpoint = 'https://relay.flashbots.net'
+
+# Define the transaction payload
+payload = {
+    'jsonrpc': '2.0',
+    'method': 'eth_sendTransaction',
+    'params': [{
+        'from': 'YOUR_WALLET_ADDRESS',
+        'to': 'YOUR_WALLET_ADDRESS',
+        'value': '300000000',
+        'gasPrice': '0x14',
+        'chainId': 1,
+        'nonce': 0
+    }],
+    'id': 1
+}
+
+# Send the transaction and confirm it 3 times
+for i in range(3):
+    response = requests.post(endpoint, json=payload)
+    tx_hash = response.json()['result']
+    print(f'Transaction {i+1} Hash:', tx_hash)
+    # Wait for the transaction to be included in the block
+    response = requests.post(endpoint, json={'jsonrpc': '2.0', 'method': 'eth_getTransactionReceipt', 'params': [tx_hash], 'id': 1})
+    while response.json()['result'] is None:
+        response = requests.post(endpoint, json={'jsonrpc': '2.0', 'method': 'eth_getTransactionReceipt', 'params': [tx_hash], 'id': 1})
+    print(f'Transaction {i+1} Confirmed!')
