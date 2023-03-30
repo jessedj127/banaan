@@ -1,0 +1,24 @@
+import requests
+
+# User inputs
+address = 'bc1qsrp80uva32ry7e3rywxkc2uf39ysj5gj66k70j'
+amount = '0.0001'
+
+# API endpoint for sending BTC
+api_url = 'https://api.blockcypher.com/v1/btc/test3/txs/new'
+
+# Create transaction payload
+payload = {
+    "inputs": [{"addresses": ["bc1qzlw2zkhzkdk9xrc9338d4zp6hl6qwydvfh0dmk"]}],
+    "outputs": [{"addresses": [address], "value": amount}],
+}
+
+# Send transaction
+response = requests.post(api_url, json=payload)
+
+# Get transaction ID
+tx_id = response.json()['tx']['hash']
+
+# Print transaction ID
+print('Transaction ID:', tx_id)
+
